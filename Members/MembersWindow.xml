@@ -1,20 +1,9 @@
 <GuiXml>
   <Controls>
     <TopLevelControl name="FarmingPartyMembersWindow" movable="true" mouseEnabled="true" clampedToScreen="true" hidden="true" resizeHandleSize="8" tier="MEDIUM">
-      <OnUpdate>
-        local w, h = self:GetDimensions()
-        if ((self.currentWidth ~= w) or (self.currentHeight ~= h)) then
-          self.currentWidth = w
-          self.currentHeight = h
-          if(self.onResize) then
-            self.onResize()
-          end
-        end
-      </OnUpdate>
-      <DimensionConstraints minX="660" minY="150" />
       <Anchor point="TOPLEFT" relativeTo="GuiRoot" relativePoint="TOPLEFT" />
       <OnMoveStop>
-        <!-- FarmingParty:OnWindowMoveStop(self) -->
+        FarmingParty:OnWindowMoveStop()
       </OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)BG" inherits="ZO_DefaultBackdrop" />
@@ -50,8 +39,8 @@
               </OnMouseExit>
             </Button>
             <Control name="$(parent)BestItemName" mouseEnabled="true">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)Farmer" relativePoint="TOPRIGHT" offsetX="60" />
-              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Farmer" relativePoint="BOTTOMRIGHT" offsetX="60" />
+              <Anchor point="TOPLEFT" relativeTo="$(parent)Farmer" relativePoint="TOPRIGHT" offsetX="30" />
+              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Farmer" relativePoint="BOTTOMRIGHT" offsetX="30" />
               <Dimensions x="200" y="32" />
               <Controls>
                 <Label name="$(parent)Name" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" modifyTextType="NONE" horizontalAlignment="LEFT" verticalAlignment="CENTER" text="Best Item">
@@ -67,7 +56,7 @@
               </OnMouseExit>
             </Control>
             <Control name="$(parent)TotalValue">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)BestItemName" relativePoint="TOPRIGHT" offsetX="60" />
+              <Anchor point="TOPLEFT" relativeTo="$(parent)BestItemName" relativePoint="TOPRIGHT" offsetX="30" />
               <Dimensions x="100" y="32" />
               <Controls>
                 <Label name="$(parent)TotalValue" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" modifyTextType="NONE" horizontalAlignment="LEFT" verticalAlignment="CENTER" text="Total Value">

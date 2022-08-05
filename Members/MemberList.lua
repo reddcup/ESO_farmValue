@@ -12,8 +12,17 @@ function FarmingPartyMemberList:New()
   return obj
 end
 
+function FarmingPartyMemberList:RestorePosition()
+  local left = FarmingParty.SavedVariables.left
+  local top = FarmingParty.SavedVariables.top
+
+  FarmingPartyMembersWindow:ClearAnchors()
+  FarmingPartyMembersWindow:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+end
+
 function FarmingPartyMemberList:Initialize()
   saveData = ZO_SavedVars:New('FarmingPartyMemberList_db', RELEASE_COUNT, nil, {members = {}})
+  FarmingParty.savedVariables = ZO_SavedVars:New('FarmingPartySavedVariables', 1, nil, {})
   FarmingParty.Modules.Members = FarmingPartyMembers:New(saveData)
   members = FarmingParty.Modules.Members
 
@@ -31,6 +40,7 @@ function FarmingPartyMemberList:Initialize()
   )
   FarmingPartyMembersWindow.onResize = self.onResize
 
+  FarmingPartyMemberList:RestorePosition()
   FarmingPartyMemberList:SetWindowTransparency()
   FarmingPartyMemberList:SetWindowBackgroundTransparency()
 
@@ -109,6 +119,11 @@ end
 
 function FarmingPartyMemberList:OnMemberJoined(event, memberName)
   self:AddAllGroupMembers()
+end
+
+function FarmingParty:OnWindowMoveStop()
+  FarmingParty.savedVariables.left = FarmingPartyMembersWindow:GetLeft()
+  FarmingParty.savedVariables.top = FarmingPartyMembersWindow:GetTop()
 end
 
 function FarmingPartyMemberList:OnMemberLeft(event, memberName, reason, wasLocalPlayer)
